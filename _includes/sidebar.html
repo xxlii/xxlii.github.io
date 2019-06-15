@@ -1,0 +1,34 @@
+{% assign trans = site.data.values[site.lan] %}
+<div class="sidebar well">
+    <header class="sidebar-header" role="banner">
+        <a href="{{ site.baseurl }}/">
+            <img src="{{ site.baseurl }}/assets/images/xixia.gif" class="img-circle" />
+        </a>
+        <!--
+        <h3 class="title">
+        <a href="{{ site.BASE_PATH }}/">{{ site.title }}</a>
+        </h3>
+        -->
+    </header>
+    <div class="text-center">
+        {{ site.description }}
+    </div>
+</div>
+
+{% assign sortedcategories = site.categories | sort %}
+{% for category in sortedcategories %}
+<div class="sidebar well">
+    <h1>{{ category[0] | capitalize }}</h1>
+    <ul>
+        {% assign pages_list = category[1] %}
+        {% for node in pages_list %}
+            {% if node.title != null %}
+            {% if group == null or group == node.group %}
+                <li><a href="{{ site.baseurl}}{{ node.url }}">{{ node.title }}</a></li>
+            {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% assign pages_list = nil %}
+    </ul>
+</div>
+{% endfor %}
